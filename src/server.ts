@@ -1,7 +1,8 @@
-/** source/server.ts */
+/** src/server.ts */
 import http from 'http';
 import express, { Express } from 'express';
 import morgan from 'morgan';
+import tokenRoutes from './routes/token';
 
 const router: Express = express();
 
@@ -25,6 +26,9 @@ router.use((req, res, next) => {
     }
     next();
 });
+
+/** Routes */
+router.use('/api', tokenRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
