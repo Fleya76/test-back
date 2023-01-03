@@ -10,7 +10,7 @@ type Token = {
 // Create a new JWT token
 const createToken = async (req: Request, res: Response, next: NextFunction) => {
     // get the data from req.body
-    let email: [Token] = req.body.email;
+    const email: Token = req.body.email;
 
     if (!email) {
         return res.status(401).send();

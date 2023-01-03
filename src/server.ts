@@ -2,9 +2,13 @@
 import http from 'http';
 import express, { Express } from 'express';
 import morgan from 'morgan';
+
+import contentRoutes from './routes/content';
 import tokenRoutes from './routes/token';
+import {verifyToken} from "./middlewares/verifyToken";
 
 const router: Express = express();
+const BASE_API = "/api"
 
 /** Logging */
 router.use(morgan('dev'));
@@ -28,7 +32,8 @@ router.use((req, res, next) => {
 });
 
 /** Routes */
-router.use('/api', tokenRoutes);
+router.use(BASE_API, tokenRoutes);
+router.use(BASE_API, verifyToken, contentRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
