@@ -1,6 +1,6 @@
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import readConfiguration from "../helpers/readConfiguration";
+
 export interface CustomRequest extends Request {
     body: Object | JwtPayload;
 }
@@ -12,10 +12,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
             throw new Error();
         }
 
-        const configuration = await readConfiguration();
-        const tokenSecret = configuration.private.tokenSecret;
-
-        const decodedToken = jwt.verify(token, tokenSecret as Secret);
+        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET as Secret);
         (req as CustomRequest).body = {
             ...req.body,
             decodedToken

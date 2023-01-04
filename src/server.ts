@@ -2,6 +2,10 @@
 import http from 'http';
 import express, { Express } from 'express';
 import morgan from 'morgan';
+import * as dotenv from 'dotenv'
+
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './docs';
 
 import contentRoutes from './routes/content';
 import tokenRoutes from './routes/token';
@@ -10,12 +14,16 @@ import {verifyToken} from "./middlewares/verifyToken";
 const router: Express = express();
 const BASE_API = "/api"
 
+/** Load the ENV file */
+dotenv.config()
 /** Logging */
 router.use(morgan('dev'));
 /** Parse the request */
 router.use(express.urlencoded({ extended: false }));
 /** Takes care of JSON data */
 router.use(express.json());
+/** Swagger documentation for API */
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /** RULES OF OUR API */
 router.use((req, res, next) => {

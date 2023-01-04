@@ -1,7 +1,5 @@
 /** src/controllers/content.ts */
 import { Request, Response, NextFunction } from 'express';
-import {Secret, sign} from 'jsonwebtoken';
-import readConfiguration from "../helpers/readConfiguration";
 
 type Payload = {
     content: String;

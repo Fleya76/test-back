@@ -1,4 +1,5 @@
-configuration.yml
+.env
+/src/docs
 
 /node_modules
 

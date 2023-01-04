@@ -1,3 +1,0 @@
-private: {
-  tokenSecret: 'PRIVATE_KEY'
-}
