@@ -20,6 +20,6 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
 
         next();
     } catch (err) {
-        res.status(401).send('Please create a new API KEY with the api/token/create route.');
+        res.status(401).send('Please create a new API KEY with the api/token/create route. Get more information at /api-docs');
     }
 };
