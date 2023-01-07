@@ -11,12 +11,18 @@ const justify = (text: string, length: number = 80) => {
     while(line.length < length && textSplit.length !== 0) {
         const word = textSplit[0]
         if(word.length + line.length + 1 < length){
-            line = `${line} ${word}`
+            line = line.length === 0 ? word : `${line} ${word}`
             textSplit.shift()
-        } else {
-            result.push(`${line} \n`)
+        } else if (line.length !== 0){
+            result.push(`${line}\n`)
             line = ""
+        } else {
+            textSplit.shift()
+            result.push(word)
         }
+    }
+    if(line.length !== 0){
+        result.push(`${line}`)
     }
     return result.join("")
 }

@@ -27,7 +27,7 @@ const justifyContent = async (req: Request, res: Response, next: NextFunction) =
     const today = new Date().setHours(0, 0, 0, 0);
     const thatDay = new Date(userFound.lastUpdateAt).setHours(0, 0, 0, 0);
     const combinedCount = userFound.count + content.split(" ").length
-    if(combinedCount < 80000){
+    if(combinedCount <  (process.env.USAGE || 80000)){
         if(today === thatDay){
             updateUser(decodedToken.email, { count: combinedCount, lastUpdateAt: Date.now()});
         } else {

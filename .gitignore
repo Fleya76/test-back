@@ -1,7 +1,7 @@
+.idea
 .env
 db.json
 
-/tests
 /src/docs
 /node_modules
 
