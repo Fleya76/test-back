@@ -10,6 +10,9 @@ import swaggerDocument from './docs';
 import contentRoutes from './routes/content';
 import tokenRoutes from './routes/token';
 import { verifyToken } from "./middlewares/verifyToken";
+import { createConnection } from "./db";
+
+createConnection().then(() => console.log('DB Intitialized'));
 
 const router: Express = express();
 const BASE_API = "/api"

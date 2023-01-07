@@ -1,24 +1,40 @@
 /** src/controllers/token.ts */
 import { Request, Response, NextFunction } from 'express';
-import {Secret, sign} from 'jsonwebtoken';
+import { Secret, sign } from 'jsonwebtoken';
+import { User } from "../db";
+import { createUser, getUserByEmail, updateUser } from "../helpers/usersCollection"
 
-type Token = {
-    email: String;
-}
-
-// Create a new JWT token
+/** Create a specific token for auth and register or update a new user in DB */
 const createToken = async (req: Request, res: Response, next: NextFunction) => {
-    // get the data from req.body
-    const email: Token = req.body.email;
+    const email = req.body.email;
 
     if (!email) {
         return res.status(401).send();
     }
 
-    // return response
-    return res.status(200).json({
-        token: sign({ email },  process.env.TOKEN_SECRET as Secret, { expiresIn: '1d' }),
-    });
+    try {
+        // Create new JWT token
+        const token: string = sign({ email },  process.env.TOKEN_SECRET as Secret, { expiresIn: '1d' })
+        const newUser: User = { email, token, count: 0, lastUpdateAt: Date.now()};
+
+        // Find user by email
+        const userFound = getUserByEmail(email).value()
+
+        // If Users collection already have
+        if(userFound){
+            // Update the token for the current user
+            updateUser(email, { token })
+        } else {
+            // Create new user in DB
+            createUser(newUser);
+        }
+
+        return res.status(200).json({
+            token
+        });
+    } catch (error) {
+        return res.status(500).send(error);
+    }
 };
 
 export default { createToken };
