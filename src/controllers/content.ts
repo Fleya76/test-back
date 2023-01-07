@@ -33,6 +33,7 @@ const justifyContent = async (req: Request, res: Response, next: NextFunction) =
         } else {
             updateUser(decodedToken.email, { count: content.split(" ").length, lastUpdateAt: Date.now()})
         }
+        res.set('Content-Type', 'text/plain')
         return res.status(200).send(justify(content, length));
     } else {
         return res.status(402).send("Payment Required");
