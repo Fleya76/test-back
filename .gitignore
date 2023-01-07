@@ -2,5 +2,6 @@
 .env
 db.json
 
+/dist
 /node_modules
 

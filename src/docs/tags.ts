@@ -1,5 +1,5 @@
 export default {
-    tags:{
-        name:'Justify content operations'
-    },
-}
+  tags: {
+    name: 'Justify content operations',
+  },
+};

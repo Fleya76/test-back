@@ -2,23 +2,23 @@
 import http from 'http';
 import express, { Express } from 'express';
 import morgan from 'morgan';
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 
-import swaggerUi from 'swagger-ui-express'
+import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './docs';
 
 import contentRoutes from './routes/content';
 import tokenRoutes from './routes/token';
-import { verifyToken } from "./middlewares/verifyToken";
-import { createConnection } from "./db";
+import { verifyToken } from './middlewares/verifyToken';
+import { createConnection } from './db';
 
 createConnection().then(() => console.log('DB Intitialized'));
 
 const router: Express = express();
-const BASE_API = "/api"
+const BASE_API = '/api';
 
 /** Load the ENV file */
-dotenv.config()
+dotenv.config();
 /** Logging */
 router.use(morgan('dev'));
 /** Parse the request */
@@ -30,16 +30,16 @@ router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /** RULES OF OUR API */
 router.use((req, res, next) => {
-    // set the CORS policy
-    res.header('Access-Control-Allow-Origin', '*');
-    // set the CORS headers
-    res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
-    // set the CORS method headers
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST');
-        return res.status(200).json({});
-    }
-    next();
+  // set the CORS policy
+  res.header('Access-Control-Allow-Origin', '*');
+  // set the CORS headers
+  res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
+  // set the CORS method headers
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST');
+    return res.status(200).json({});
+  }
+  next();
 });
 
 /** Routes */
@@ -48,10 +48,10 @@ router.use(BASE_API, verifyToken, contentRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
-    const error = new Error('not found');
-    return res.status(404).json({
-        message: error.message
-    });
+  const error = new Error('not found');
+  return res.status(404).json({
+    message: error.message,
+  });
 });
 
 /** Server */
@@ -59,4 +59,4 @@ const httpServer = http.createServer(router);
 const PORT: any = process.env.PORT ?? 6060;
 httpServer.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
 
-export default httpServer
+export default httpServer;

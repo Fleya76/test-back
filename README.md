@@ -15,8 +15,9 @@ Could you run these commands at the root of this project for more fun please ?
 
 ## Improvment
 
-- Add Prettier and Lint to the project
 - Upload the API online
+- Add Husky to create a quality process during the workflow.
+- Add letter spacing system in the Justify algo.
 
 ## Contact
 
