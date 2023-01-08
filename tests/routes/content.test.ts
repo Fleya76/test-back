@@ -6,7 +6,7 @@ const smallSentence = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 describe('Should test the justify route', () => {
     it('should justify a text content without length', (done) => {
         request(server).post('/api/token/create').send({
-            "email": "test@tictactrip"
+            "email": "test@test-back"
         }).expect(200).end((_, res) =>
             request(server).post('/api/content/justify').set('Authorization', res.body.token).send({
                 "content": smallSentence
@@ -15,7 +15,7 @@ describe('Should test the justify route', () => {
 
     it('should justify a text content with a length parameter', (done) => {
         request(server).post('/api/token/create').send({
-            "email": "test@tictactrip"
+            "email": "test@test-back"
         }).expect(200).end((_, res) =>
             request(server).post('/api/content/justify').set('Authorization', res.body.token).send({
                 "content": smallSentence,
@@ -25,7 +25,7 @@ describe('Should test the justify route', () => {
 
     it('should not justify because the text content is empty', (done) => {
         request(server).post('/api/token/create').send({
-            "email": "test@tictactrip"
+            "email": "test@test-back"
         }).expect(200).end((_, res) =>
             request(server).post('/api/content/justify').set('Authorization', res.body.token).send({
                 "length": 15,
@@ -34,7 +34,7 @@ describe('Should test the justify route', () => {
 
     it('should not justify because the payload is empty', (done) => {
         request(server).post('/api/token/create').send({
-            "email": "test@tictactrip"
+            "email": "test@test-back"
         }).expect(200).end((_, res) =>
             request(server).post('/api/content/justify').set('Authorization', res.body.token).send({}).expect(401).end(done))
     })
@@ -50,7 +50,7 @@ describe('Should test the justify route', () => {
     it('should receive an error because the usage per day is already consumed', (done) => {
         process.env.USAGE = "10"
         request(server).post('/api/token/create').send({
-            "email": "test@tictactrip"
+            "email": "test@test-back"
         }).expect(200).end((_, res) =>
             request(server).post('/api/content/justify').set('Authorization', res.body.token).send({
                 "content":smallSentence

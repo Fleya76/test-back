@@ -13,7 +13,7 @@ export default {
           email: {
             type: 'string',
             description: 'Email identification to create a JWT Token',
-            example: 'coucou@tictactrip.fr',
+            example: 'coucou@test-back.fr',
           },
         },
       },

@@ -1,5 +1,5 @@
 /** src/controllers/content.ts */
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import justify from '../helpers/justify';
 import { getUserByEmail, updateUser } from '../helpers/usersCollection';
 
@@ -13,7 +13,7 @@ type Payload = {
 };
 
 /** Justify content receive by payload and verify if the usage is correct or not  */
-const justifyContent = async (req: Request, res: Response, next: NextFunction) => {
+const justifyContent = async (req: Request, res: Response) => {
   // get the data from req.body
   const { content = '', decodedToken, length }: Payload = req.body;
 

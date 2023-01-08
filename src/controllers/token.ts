@@ -1,11 +1,11 @@
 /** src/controllers/token.ts */
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { Secret, sign } from 'jsonwebtoken';
 import { User } from '../db';
 import { createUser, getUserByEmail, updateUser } from '../helpers/usersCollection';
 
 /** Create a specific token for auth and register or update a new user in DB */
-const createToken = async (req: Request, res: Response, next: NextFunction) => {
+const createToken = async (req: Request, res: Response) => {
   const email = req.body.email;
 
   if (!email) {
